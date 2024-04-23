@@ -70,15 +70,13 @@
         var notyf = new Notyf({
             duration: 6000,
             position: {
-                x: 'center',
-                y: 'center',
+                x: 'top',
+                y: 'right',
             },
         });
-        const notification = notyf.success('هناك مهمات قد تخطت يومين لم تنجز ادخل الان ولا تحاول تجاهلها');
-        notification.on('click', ({target, event}) => {
-            // target: the notification being clicked
-            // event: the mouseevent
-            window.location.href = '{{ route('admins.index') }}';
+        const notification = notyf.success('هناك مهمات اليوم اذهب لرؤيتها ');
+        notification.on('click', () => {
+            window.location.href = '{{ route('notifications.index') }}';
         });
 
     } // end playAudio
@@ -88,7 +86,8 @@
             url: '{{ route('checkTasks') }}',
             type: 'GET',
             success: function(response) {
-                if (response.data.length > 0) {
+                console.log(response.data);
+                if (response.data > 0) {
                     playWarning();
                 }
             },
@@ -96,7 +95,7 @@
 
             }
         });
-    }, 1000); // Check every minute (adjust as needed)
+    }, 5000); // Check every minute (adjust as needed)
     @endif
 
 </script>

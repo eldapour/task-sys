@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Jobs\SendTaskNotification;
 use App\Jobs\TaskSeederJob;
+use App\Models\Notification;
 use App\Models\Task;
 
 class MainController extends Controller
@@ -14,22 +15,13 @@ class MainController extends Controller
     public function checkTasks()
     {
         // Get all tasks that are not completed and were created more than 2 days ago
-        $tasks = Task::where('status','!=','completed')
-            ->whereHas('subTasks',function ($query){
-                $query->where('date','<=',now()->subDays(2));
-            })
-            ->get();
-
+        $tasks = Notification::where('read', 0)->count();
         return response()->json(['message' => 'Tasks checked successfully','data' => $tasks]);
     }
 
-    public function SendTaskNotification()
+    public function sendNotifications()
     {
         SendTaskNotification::dispatch()->onQueue('task_alert');
-    }
-    public function TaskSeederJob()
-    {
-        TaskSeederJob::dispatch()->onQueue('task_alert');
     }
 
 }//end class

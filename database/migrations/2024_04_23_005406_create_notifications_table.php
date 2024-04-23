@@ -15,9 +15,12 @@ class CreateNotificationsTable extends Migration
     {
         Schema::create('notifications', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('task_id')->constrained()->onDelete('cascade');
+            $table->bigInteger('sub_task_id')->nullable();
             $table->string('title');
-            $table->string('body');
-            $table->string('read_at')->nullable();
+            $table->text('body');
+            $table->boolean('read')->default(false);
             $table->timestamps();
         });
     }
@@ -32,3 +35,4 @@ class CreateNotificationsTable extends Migration
         Schema::dropIfExists('notifications');
     }
 }
+

@@ -15,7 +15,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('tasks:delete-old')->dailyAt('00:00');
+        $schedule->command('tasks:delete-old')->daily();
+        $schedule->command('task:send')->everyMinute();
+        $schedule->command('subtask:send')->daily();
     }
 
     /**

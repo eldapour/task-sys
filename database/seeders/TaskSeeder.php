@@ -12,7 +12,7 @@ class TaskSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         TaskSeederJob::dispatch()->onQueue('task_seeder');
     }

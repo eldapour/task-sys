@@ -4,10 +4,12 @@ namespace App\Providers;
 
 use App\Interfaces\AdminInterface;
 use App\Interfaces\AuthInterface;
+use App\Interfaces\NotificationInterface;
 use App\Interfaces\TaskInterface;
 use App\Interfaces\UserInterface;
 use App\Repository\AdminRepository;
 use App\Repository\AuthRepository;
+use App\Repository\NotificationRepository;
 use App\Repository\TaskRepository;
 use App\Repository\UserRepository;
 use Illuminate\Support\ServiceProvider;
@@ -26,6 +28,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(AdminInterface::class,AdminRepository::class);
        $this->app->bind(UserInterface::class,UserRepository::class);
        $this->app->bind(TaskInterface::class,TaskRepository::class);
+       $this->app->bind(NotificationInterface::class,NotificationRepository::class);
         // End App Classes And Interfaces =============
 
     }
